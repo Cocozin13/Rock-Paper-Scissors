@@ -50,7 +50,7 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
-function game(){
+/*function game(){
     let scorePlayer = 0;
     let scoreComputer = 0;
     for (let i = 0; i < 5; i++) {
@@ -80,6 +80,15 @@ function game(){
     else{
         console.log("It's a tie!")
     }
-}
+}*/
 
-game()
+/*game()*/
+
+const buttons = document.querySelectorAll(".btn")
+
+buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        console.log(playRound("rock", getComputerChoice()))
+    });
+}); 
+console.log(playRound("rock", "paper"))
