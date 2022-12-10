@@ -1,4 +1,6 @@
 const options = ["rock", "paper", "scissors"];
+let scorePlayer = 0;
+let scoreComputer = 0;
 
 const buttons = document.querySelectorAll(".btn")
 
@@ -8,13 +10,20 @@ const scissorsButton = document.querySelector('.scissors');
 const playerScore = document.querySelector('.playerScore');
 const comScore = document.querySelector('.comScore');
 const gameResult = document.querySelector('.endGame');
-const matchResult = document.querySelector('.match'); 
+const matchResult = document.querySelector('.match');
+const resetBtn = document.querySelector('.reset')
+
+resetBtn.style.display = 'none'
 
 function resetGame() {
-    playerScore.textContent = "0"
-    comScore.textContent = "0"
-    gameResult.textContent = ""
-    matchResult.textContent = ""
+    scorePlayer = 0;
+    scoreComputer = 0;
+    playerScore.textContent = "0";
+    comScore.textContent = "0";
+    gameResult.textContent = "";
+    matchResult.textContent = "";
+    resetBtn.style.display = 'none'
+    buttons.disabled = false;
 }
 
 function getComputerChoice(){
@@ -22,21 +31,6 @@ function getComputerChoice(){
     console.log(choice);
     return choice; 
 }
-
-/*function getPlayerChoice(){
-    let validatedInput = false;
-    while(validatedInput === false){
-        const choice = prompt("Rock, Paper or Scissors?");
-        if(choice == null){
-            continue;
-        }
-        const choiceLower = choice.toLowerCase()
-        if(options.includes(choiceLower)){
-            validatedInput = true;
-            return choiceLower; 
-        }
-    } 
-}*/
 
 function checkRound(playerSelection, computerSelection){
     if(playerSelection === computerSelection){
@@ -74,52 +68,35 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
-function getPlayerChoice1() {
-    buttons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            if (btn.dataset.button) {
-                console.log(playRound(btn.dataset.button, getComputerChoice()))
-            }
-        });
-    });     
-}
-
-function game(){
-    let scorePlayer = 0;
-    let scoreComputer = 0;
-    for (let i = 0; i < 5; i++) {  //Retirar loop/Fazer condicional para 5 pontos :=)
-        if(i === 0){
-            console.log("First Round!");
-        }
-        else if(i === 4){
-            console.log("Last Round!");
-        }
-        const playerSelection = getPlayerChoice1();
-        const computerSelection = getComputerChoice();
-        console.log(playRound(playerSelection, computerSelection));
-        console.log("----------------------")
-        if(checkRound(playerSelection,computerSelection) === "Player"){
-            scorePlayer++;
-            playerScore.textContent = `${scorePlayer}`
-        }
-        else if(checkRound(playerSelection, computerSelection) == "Computer"){
-            scoreComputer++;
-            comScore.textContent = `${scoreComputer}`
-        }
+function game(playerSelection){
+    const computerSelection = getComputerChoice();
+    playRound(playerSelection, computerSelection);
+    if(checkRound(playerSelection,computerSelection) === "Player"){
+        scorePlayer++;
+        playerScore.textContent = `${scorePlayer}`
     }
-    if(scorePlayer > scoreComputer){
-        gameResult.textContent = `Player won by ${scorePlayer}/5`
-        console.log(`Player won by ${scorePlayer}/5`)
+    else if(checkRound(playerSelection, computerSelection) == "Computer"){
+        scoreComputer++;
+        comScore.textContent = `${scoreComputer}`
     }
-    else if(scorePlayer < scoreComputer){
-        gameResult.textContent = `Computer won by ${scoreComputer}/5`
-        console.log(`Computer won by ${scoreComputer}/5`)
+    if(scorePlayer >= 5){
+        gameResult.textContent = `You Player won!!!`
+        resetBtn.style.display = 'block'
+        buttons.forEach((btn) => {
+            btn.disabled = true
+        })
     }
-    else{
-        gameResult.textContent = "It's a tie!"
-        console.log("It's a tie!")
+    else if(scoreComputer >= 5){
+        gameResult.textContent = `The Computer won!!!`
+        resetBtn.style.display = 'block'
+        buttons.forEach((btn) => {
+            btn.disabled = true
+        })
     }
 }
 
-//game()
-getPlayerChoice1()
+buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        game(btn.dataset.button)
+    });
+});     
