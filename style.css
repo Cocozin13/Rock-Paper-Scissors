@@ -7,6 +7,7 @@ html {
 body {
     margin: 0;
     font-family: 'Roboto', arial;
+    background-color: #CACACC;
 }
 
 .endGame {
@@ -31,7 +32,39 @@ body {
     padding: 2em;
 }
 
+.btn {
+    background-color: 
+    #252B43;
+    color: #E4E4E8;
+    cursor: pointer;
+    border-radius: 10%;
+    border: 3px solid #40465B;
+    box-shadow: 0px 5px #777A8A;
+    font-weight: bolder;
+}
+
+.btn:hover {
+    color: #C8CAD0;
+    background-color: #1e2233;
+
+}
+
 .resultsBox {
     display: flex;
     justify-content: space-around;
+}
+
+.result, .match, .endGame {
+    color: #E4E4E8;
+    font-weight: bolder;
+    font-size: 1.8em;
+    -webkit-text-stroke: #40465B;
+    -webkit-text-stroke-width: 1.2px;
+}
+
+.score {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 0.2em;
 }

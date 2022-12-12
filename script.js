@@ -11,20 +11,6 @@ const playerScore = document.querySelector('.playerScore');
 const comScore = document.querySelector('.comScore');
 const gameResult = document.querySelector('.endGame');
 const matchResult = document.querySelector('.match');
-const resetBtn = document.querySelector('.reset')
-
-resetBtn.style.display = 'none'
-
-function resetGame() {
-    scorePlayer = 0;
-    scoreComputer = 0;
-    playerScore.textContent = "0";
-    comScore.textContent = "0";
-    gameResult.textContent = "";
-    matchResult.textContent = "";
-    resetBtn.style.display = 'none'
-    buttons.disabled = false;
-}
 
 function getComputerChoice(){
     const choice = options[Math.floor(Math.random() * options.length)];
@@ -54,17 +40,16 @@ function playRound(playerSelection, computerSelection){
         gameResult.textContent = "It's a tie!"
         matchResult.textContent = ""
         return "It's a tie"
-        
     }
     else if(response === "Player") {
         gameResult.textContent = "You Win!"
-        matchResult.textContent = `${playerSelection} beats ${computerSelection}.`
-        return `You win! ${playerSelection} beats ${computerSelection}.`
+        matchResult.textContent = `${playerSelection} beats ${computerSelection}.`.toUpperCase()
+        return `You win! ${playerSelection} beats ${computerSelection}.`.toUpperCase()
     }
     else {
         gameResult.textContent = "You Lose!"
-        matchResult.textContent = `${computerSelection} beats ${playerSelection}.`
-        return `You lose! ${computerSelection} beats ${playerSelection}.`
+        matchResult.textContent = `${computerSelection} beats ${playerSelection}.`.toUpperCase()
+        return `You lose! ${computerSelection} beats ${playerSelection}.`.toUpperCase()
     }
 }
 
@@ -80,15 +65,15 @@ function game(playerSelection){
         comScore.textContent = `${scoreComputer}`
     }
     if(scorePlayer >= 5){
-        gameResult.textContent = `You Player won!!!`
-        resetBtn.style.display = 'block'
+        gameResult.textContent = `You Player won!!!`;
+        matchResult.textContent = `Press F5 to play again`;
         buttons.forEach((btn) => {
             btn.disabled = true
         })
     }
     else if(scoreComputer >= 5){
-        gameResult.textContent = `The Computer won!!!`
-        resetBtn.style.display = 'block'
+        gameResult.textContent = `The Computer won!!!`;
+        matchResult.textContent = `Press F5 to play again`;
         buttons.forEach((btn) => {
             btn.disabled = true
         })
